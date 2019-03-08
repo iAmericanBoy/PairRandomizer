@@ -25,7 +25,7 @@ class PersonController {
     
     //MARK: - CRUD
     //C
-    func createNewPerson(withName name: String, andSection section: Int64) {
+    func createNewPerson(withName name: String, inSection section: Int64) {
         Person(name: name, section: section)
         saveToPersistentStore()
     }

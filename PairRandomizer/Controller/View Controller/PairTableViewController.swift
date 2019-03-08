@@ -11,18 +11,21 @@ import CoreData
 
 class PairTableViewController: UITableViewController {
     
+    
+    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         PersonController.shared.fetchPeopleBySection.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "personCell")
+        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "footerView")
         self.title = "Pair Randomizer"
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
     }
     
     //MARK: - Actions
     @objc func addPerson() {
-        
+        addPersonAlert()
     }
     
     // MARK: - Table view data source
@@ -47,6 +50,35 @@ class PairTableViewController: UITableViewController {
             PersonController.shared.remove(person: personToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    //MARK: - Private Functions
+    func addPersonAlert() {
+        var nameTextField: UITextField?
+        let addPersonController = UIAlertController(title: "Add new Person", message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Save Name", style: .default) { action in
+            if let name = nameTextField?.text {
+                PersonController.shared.createNewPerson(withName: name, inSection: 0)
+            }
+        }
+        confirmAction.isEnabled = false
+        addPersonController.addTextField { textField in
+            textField.placeholder = "Add name..."
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main) { notif in
+                if let name = textField.text, !name.isEmpty {
+                    confirmAction.isEnabled = true
+                    nameTextField = textField
+                } else {
+                    confirmAction.isEnabled = false
+                }
+            }
+        }
+        addPersonController.addAction(confirmAction)
+        addPersonController.addAction(cancelAction)
+        
+        self.present(addPersonController, animated: true, completion: nil)
     }
 }
 
