@@ -38,6 +38,12 @@ class PersonController {
         return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "section", cacheName: nil)
     }()
     
+    //U
+    func updateSection(forPerson person: Person, withNewSection section: Int64) {
+        person.section = section
+        saveToPersistentStore()
+    }
+    
     //D
     func remove(person: Person) {
         if let moc = person.managedObjectContext {

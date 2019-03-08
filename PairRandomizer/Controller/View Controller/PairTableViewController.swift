@@ -11,8 +11,6 @@ import CoreData
 
 class PairTableViewController: UITableViewController {
     
-    
-    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +20,22 @@ class PairTableViewController: UITableViewController {
         self.title = "Pair Randomizer"
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
     }
+    //MARK: - UIElements
+    let randomizeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Randomize Sections", for: .normal)
+        button.addTarget(self, action: #selector(randomizeSections), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     //MARK: - Actions
     @objc func addPerson() {
         addPersonAlert()
+    }
+    
+    @objc func randomizeSections() {
+        
     }
     
     // MARK: - Table view data source
@@ -46,6 +56,21 @@ class PairTableViewController: UITableViewController {
         
         cell.textLabel?.text = PersonController.shared.fetchPeopleBySection.object(at: indexPath).name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.addSubview(randomizeButton)
+        randomizeButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor).isActive = true
+        randomizeButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
+        randomizeButton.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
+        randomizeButton.bottomAnchor.constraint(equalTo: footerView.bottomAnchor).isActive = true
+
+        return footerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
