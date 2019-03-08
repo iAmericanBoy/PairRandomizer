@@ -35,8 +35,7 @@ class PairTableViewController: UITableViewController {
     }
     
     @objc func randomizeSections() {
-        PersonController.shared.randomSection(maxSection: tableView.numberOfSections - 1)
-        tableView.reloadData()
+        PersonController.shared.randomSection()
     }
     
     // MARK: - Table view data source
@@ -82,7 +81,6 @@ class PairTableViewController: UITableViewController {
         if editingStyle == .delete {
             let personToDelete = PersonController.shared.fetchPeopleBySection.object(at: indexPath)
             PersonController.shared.remove(person: personToDelete)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

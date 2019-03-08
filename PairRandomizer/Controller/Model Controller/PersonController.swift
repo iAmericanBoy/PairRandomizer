@@ -33,36 +33,41 @@ class PersonController {
     //R
     let fetchPeopleBySection: NSFetchedResultsController<Person> = {
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-        let nameSort = NSSortDescriptor(key: "name", ascending: true)
         let sectionSort = NSSortDescriptor(key: "section", ascending: true)
-        fetchRequest.sortDescriptors = [nameSort,sectionSort]
+        fetchRequest.sortDescriptors = [sectionSort]
         return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "section", cacheName: nil)
     }()
     
     //U
     func updateSection(forPerson person: Person, withNewSection section: Int64) {
         person.section = section
+        saveToPersistentStore()
     }
     
-    func randomSection(maxSection: Int) {
-        var sectionsAvailabe: [Int] = []
+    func randomSection() {
+        var sectionsAvailable: [Int] = []
         
         let setOfPerson: Set<Person> = CoreDataStack.context.registeredObjects as! Set<Person>
         
         var arrayOfPerson: [Person] = Array(setOfPerson)
-        print(arrayOfPerson)
         
-        for number in (0 ..< arrayOfPerson.count).reversed() {
-            sectionsAvailabe.append(maxSection - number / 2)
+        for number in (0 ..< arrayOfPerson.count) {
+            sectionsAvailable.append(number / 2)
         }
-        while sectionsAvailabe.count != 0 {
+        
+        while sectionsAvailable.count != 0 {
             let milliSeconds = Calendar.current.component(.nanosecond, from: Date())
             let index = min((milliSeconds % 10), (arrayOfPerson.count - 1))
             let personToUpdate = arrayOfPerson.remove(at: index)
-            updateSection(forPerson: personToUpdate, withNewSection: Int64(sectionsAvailabe.remove(at: index)))
+            updateSection(forPerson: personToUpdate, withNewSection: Int64(sectionsAvailable.remove(at: index)))
         }
         saveToPersistentStore()
         CoreDataStack.context.reset()
+        do{
+            try fetchPeopleBySection.performFetch()
+        } catch {
+            print("Error loading fetchResultsController. \(String(describing: error)), \(error.localizedDescription)")
+        }
     }
     
     //D
@@ -78,8 +83,6 @@ class PersonController {
         do {
             if CoreDataStack.context.hasChanges {
                 try CoreDataStack.context.save()
-                print(CoreDataStack.context.registeredObjects)
-
             }
         } catch {
             print("Error saving: \(String(describing: error)) \(error.localizedDescription))")
