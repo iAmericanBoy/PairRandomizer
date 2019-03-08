@@ -35,7 +35,8 @@ class PairTableViewController: UITableViewController {
     }
     
     @objc func randomizeSections() {
-        
+        PersonController.shared.randomSection(maxSection: tableView.numberOfSections - 1)
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source
