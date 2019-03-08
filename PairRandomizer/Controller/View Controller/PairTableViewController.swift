@@ -70,7 +70,11 @@ class PairTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
+        if tableView.numberOfSections == section + 1 {
+            return 50
+        } else {
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -87,9 +91,25 @@ class PairTableViewController: UITableViewController {
         let addPersonController = UIAlertController(title: "Add new Person", message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let confirmAction = UIAlertAction(title: "Save Name", style: .default) { action in
+        let confirmAction = UIAlertAction(title: "Save Name", style: .default) { [weak self] action in
             if let name = nameTextField?.text {
-                PersonController.shared.createNewPerson(withName: name, inSection: 0)
+                let sections = self?.tableView.numberOfSections ?? 0
+                if sections == 0 {
+                    PersonController.shared.createNewPerson(withName: name, inSection: 0)
+                } else {
+                    var personIsInserted = false
+                    for section in 0 ..< sections {
+                        let rows = self?.tableView.numberOfRows(inSection: section) ?? 0
+                        if rows <= 1 {
+                            PersonController.shared.createNewPerson(withName: name, inSection: Int64(section))
+                            personIsInserted = true
+                            break
+                        }
+                    }
+                    if !personIsInserted {
+                        PersonController.shared.createNewPerson(withName: name, inSection: Int64(sections))
+                    }
+                }
             }
         }
         confirmAction.isEnabled = false
