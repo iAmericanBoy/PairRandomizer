@@ -10,6 +10,11 @@
 		B6EA85D12232C97200211068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA85D02232C97200211068 /* AppDelegate.swift */; };
 		B6EA85D82232C97700211068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6EA85D72232C97700211068 /* Assets.xcassets */; };
 		B6EA85DB2232C97700211068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6EA85D92232C97700211068 /* LaunchScreen.storyboard */; };
+		B6EA85E42232CB0100211068 /* Person+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA85E32232CB0100211068 /* Person+convenience.swift */; };
+		B6EA85E62232CB1500211068 /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA85E52232CB1500211068 /* PersonController.swift */; };
+		B6EA85EB2232CB5100211068 /* PairTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA85EA2232CB5100211068 /* PairTableViewController.swift */; };
+		B6EA85EF2232CC4700211068 /* PairRandomizer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6EA85ED2232CC4700211068 /* PairRandomizer.xcdatamodeld */; };
+		B6EA85F12232CCCC00211068 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA85F02232CCCC00211068 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +23,11 @@
 		B6EA85D72232C97700211068 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6EA85DA2232C97700211068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6EA85DC2232C97700211068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6EA85E32232CB0100211068 /* Person+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+convenience.swift"; sourceTree = "<group>"; };
+		B6EA85E52232CB1500211068 /* PersonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
+		B6EA85EA2232CB5100211068 /* PairTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairTableViewController.swift; sourceTree = "<group>"; };
+		B6EA85EE2232CC4700211068 /* PairRandomizer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PairRandomizer.xcdatamodel; sourceTree = "<group>"; };
+		B6EA85F02232CCCC00211068 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				B6EA85D02232C97200211068 /* AppDelegate.swift */,
+				B6EA85E72232CB1A00211068 /* Model */,
+				B6EA85E92232CB2600211068 /* Controller */,
 				B6EA85E22232C9D000211068 /* Resources */,
 			);
 			path = PairRandomizer;
@@ -64,6 +76,41 @@
 				B6EA85DC2232C97700211068 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		B6EA85E72232CB1A00211068 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B6EA85ED2232CC4700211068 /* PairRandomizer.xcdatamodeld */,
+				B6EA85E32232CB0100211068 /* Person+convenience.swift */,
+				B6EA85F02232CCCC00211068 /* CoreDataStack.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B6EA85E82232CB1E00211068 /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6EA85E52232CB1500211068 /* PersonController.swift */,
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
+		B6EA85E92232CB2600211068 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6EA85EC2232CB5400211068 /* View Controller */,
+				B6EA85E82232CB1E00211068 /* Model Controller */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B6EA85EC2232CB5400211068 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6EA85EA2232CB5100211068 /* PairTableViewController.swift */,
+			);
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6EA85EF2232CC4700211068 /* PairRandomizer.xcdatamodeld in Sources */,
+				B6EA85E42232CB0100211068 /* Person+convenience.swift in Sources */,
+				B6EA85E62232CB1500211068 /* PersonController.swift in Sources */,
+				B6EA85F12232CCCC00211068 /* CoreDataStack.swift in Sources */,
 				B6EA85D12232C97200211068 /* AppDelegate.swift in Sources */,
+				B6EA85EB2232CB5100211068 /* PairTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +380,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B6EA85ED2232CC4700211068 /* PairRandomizer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B6EA85EE2232CC4700211068 /* PairRandomizer.xcdatamodel */,
+			);
+			currentVersion = B6EA85EE2232CC4700211068 /* PairRandomizer.xcdatamodel */;
+			path = PairRandomizer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B6EA85C52232C97200211068 /* Project object */;
 }
