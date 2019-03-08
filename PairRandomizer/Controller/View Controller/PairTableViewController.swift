@@ -37,6 +37,10 @@ class PairTableViewController: UITableViewController {
         return PersonController.shared.fetchPeopleBySection.sections?[section].numberOfObjects ?? 0
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Group \(PersonController.shared.fetchPeopleBySection.sectionIndexTitles[section])"
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "personCell", for: indexPath)
         
